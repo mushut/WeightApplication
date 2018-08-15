@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Function for loading csv data from a file
 def loadWeight():
     data = []
     print("Input filename")
@@ -15,6 +16,7 @@ def loadWeight():
 
     return data
 
+# Function for saving csv data to a file
 def saveWeight(data):
     print("Input filename:")
     filename = input()
@@ -23,6 +25,7 @@ def saveWeight(data):
         for element in data:
             weigthWriter.writerow([element[0]] + [element[1]])
 
+# Function for adding weight data point
 def addWeight():
     print("Date:")
     date = input()
@@ -31,7 +34,9 @@ def addWeight():
     datapoint = (date,weight)
     return datapoint
 
+# Function for printing data as a graph
 def printWeight(data):
+    # Date should be parsed and used as x-axis for the graph
     time = np.arange(1,len(data)+1)
     weight = np.arange(1,len(data)+1)
     index = 0

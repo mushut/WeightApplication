@@ -2,6 +2,7 @@ import csv
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import date
 
 # Function for loading csv data from a file
 def loadWeight():
@@ -27,7 +28,7 @@ def saveWeight(data):
 
 # Function for adding weight data point
 def addWeight():
-    print("Date:")
+    print("Date (format: xx.yy.zzzz):")
     date = input()
     print("Weight:")
     weight = input()
@@ -36,8 +37,28 @@ def addWeight():
 
 # Function for printing data as a graph
 def printWeight(data):
-    # Date should be parsed and used as x-axis for the graph
-    time = np.arange(1,len(data)+1)
+    # Date
+    # Remember that data may not be in order!
+    first_date = data[0][0]
+    last_date = data[-1][0]
+    first_day, first_month, first_year = first_date.split('.')
+    last_day, last_month, last_year = last_date.split('.')
+    days1 = date(int(last_year),int(last_month), int(last_day))
+    days0 = date(int(first_year),int(first_month),int(first_day))
+    total_days = days0 - days1
+    difference_in_days = total_days.days
+    date_results = np.arange(1,difference_in_days)
+
+    dates = np.zeros((len(data),),dtype=int)
+    index_dates = 0
+    for element in data:
+        day, month, year = element[0].split('.')
+        date_element = date(int(year),int(month),int(day))
+        days = date_element - days0
+        dates[index_dates] = days.days
+        index_dates += 1
+
+    # Weight
     weight = np.arange(1,len(data)+1)
     index = 0
     for element in data:
@@ -45,7 +66,7 @@ def printWeight(data):
         index += 1
 
     fig, ax = plt.subplots()
-    ax.plot(time,weight)
+    ax.plot(dates,weight)
 
     ax.set(xlabel='Day', ylabel='Weight',title='Weight plot')
     ax.grid()

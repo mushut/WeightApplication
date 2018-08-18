@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import date
 
+import personWeight
+
 # Function for loading csv data from a file
 def loadWeight():
     data = []
@@ -74,8 +76,12 @@ def printWeight(data):
     plt.show()
 
 def main():
+    person = personWeight.personWeight('', [])
     weightData = []
     print("Weight application")
+    print("Give your user ID:")
+    userID = input()
+    person.setUserID(userID)
 
     while(True):
         print("Menu")
@@ -97,7 +103,11 @@ def main():
             saveWeight(weightData)
 
         elif choice == 3:
-            weightData.append(addWeight())
+            print("Date (format xx.yy.zzzz):")
+            date = input()
+            print("Weight:")
+            weight = input()
+            person.addWeight(date,weight)
 
         elif choice == 4:
             print("Print weight data")

@@ -37,6 +37,7 @@ def addWeight():
     datapoint = (date,weight)
     return datapoint
 
+# Printing will be moved class personWeight.
 # Function for printing data as a graph
 def printWeight(data):
     # Date
@@ -95,10 +96,14 @@ def main():
         choice = int(choice_str)
 
         if choice == 1:
+            # Needs to be updated
+            # userID loaded from file
             print("Load")
             weightData = loadWeight()
 
         elif choice == 2:
+            # Needs to be updated
+            # userID written to file
             print("Save")
             saveWeight(weightData)
 
@@ -111,7 +116,7 @@ def main():
 
         elif choice == 4:
             print("Print weight data")
-            printWeight(weightData)
+            person.printWeightData()
 
         elif choice == 5:
             break

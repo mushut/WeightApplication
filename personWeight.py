@@ -33,12 +33,28 @@ class personWeight(object):
         # Graphs are printed from here
 
         # Data for weight graph
-        time_weight = 0
-        weight = 0
+        first_date = self.weightData[0][0]
+        first_day, first_month, first_year = first_date.split('.')
+        days0 = date(int(first_year), int(first_month), int(first_day))
+        time_weight = np.zeros((len(self.weightData),),dtype=int)
+        index_dates = 0
+        for element in self.weightData:
+            day, month, year = element[0].split('.')
+            date_element = date(int(year), int(month), int(day))
+            days = date_element - days0
+            time_weight[index_dates] = days.days
+            index_dates += 1
+
+        weight = np.arange(1, len(self.weightData) + 1)
+        index = 0
+        for element in self.weightData:
+            weight[index] = float(element[1])
+            index += 1
 
         # Data for 7 day moving average graph
-        time_average = 0
-        weight_average = 0
+        # time_average = 0
+        # weight_average = 0
 
-        plt.plot(time_weight, weight, 'b.-', time_average, weight_average, 'gv-')
+        # plt.plot(time_weight, weight, 'b.-', time_average, weight_average, 'gv-')
+        plt.plot(time_weight, weight, 'b.-')
         plt.show()

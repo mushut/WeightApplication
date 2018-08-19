@@ -45,7 +45,7 @@ class personWeight(object):
             time_weight[index_dates] = days.days
             index_dates += 1
 
-        weight = np.arange(1, len(self.weightData) + 1)
+        weight = np.arange(1, len(self.weightData) + 1, dtype=float)
         index = 0
         for element in self.weightData:
             weight[index] = float(element[1])

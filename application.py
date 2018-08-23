@@ -8,10 +8,15 @@ def loadWeight():
     print("Input filename")
     filename = input()
     with open(filename, newline='') as csvfile:
-        weightReader = csv.reader(csvfile, delimiter=',')
+        weightReader = csv.reader(csvfile, delimiter=';')
         userID = next(weightReader,None)
         for row in weightReader:
-            element = (row[0],row[1])
+            date = (row[0].split('.'))
+            date_as_integers = [0,0,0]
+            date_as_integers[0] = int(date[0])
+            date_as_integers[1] = int(date[1])
+            date_as_integers[2] = int(date[2])
+            element = (date_as_integers,row[1])
             data.append(element)
 
     person = personWeight.personWeight(userID, data)
@@ -23,19 +28,10 @@ def saveWeight(person):
     print("Input filename:")
     filename = input()
     with open (filename, 'w', newline='') as csvfile:
-        weigthWriter = csv.writer(csvfile)
+        weigthWriter = csv.writer(csvfile, delimiter=';')
         weigthWriter.writerow([person.getUserID()])
         for element in person.getWeightData():
             weigthWriter.writerow([element[0]] + [element[1]])
-
-# Function for adding weight data point
-def addWeight():
-    print("Date (format: xx.yy.zzzz):")
-    date = input()
-    print("Weight:")
-    weight = input()
-    datapoint = (date,weight)
-    return datapoint
 
 def main():
     person = personWeight.personWeight('', [])
@@ -66,9 +62,14 @@ def main():
         elif choice == 3:
             print("Date (format xx.yy.zzzz):")
             date = input()
+            date_parsed = date.split('.')
+            date_parsed_as_integers = [0, 0, 0]
+            date_parsed_as_integers[0] = int(date_parsed[0])
+            date_parsed_as_integers[1] = int(date_parsed[1])
+            date_parsed_as_integers[2] = int(date_parsed[2])
             print("Weight:")
             weight = input()
-            person.addWeight(date,weight)
+            person.addWeight(date_parsed_as_integers,weight)
 
         elif choice == 4:
             print("Print weight data")

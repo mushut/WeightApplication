@@ -27,20 +27,22 @@ class personWeight(object):
         self.weightData.append(newData)
 
         # Reorder weightData
-        # TBD
+        # TBD.
 
     def printWeightData(self):
         # Graphs are printed from here
 
         # Data for weight graph
         first_date = self.weightData[0][0]
-        first_day, first_month, first_year = first_date.split('.')
-        days0 = date(int(first_year), int(first_month), int(first_day))
+        first_day, first_month, first_year = first_date
+        days0 = date(first_year, first_month, first_day)
         time_weight = np.zeros((len(self.weightData),),dtype=int)
         index_dates = 0
         for element in self.weightData:
-            day, month, year = element[0].split('.')
-            date_element = date(int(year), int(month), int(day))
+            day = element[0][0]
+            month = element[0][1]
+            year = element[0][2]
+            date_element = date(year,month,day)
             days = date_element - days0
             time_weight[index_dates] = days.days
             index_dates += 1

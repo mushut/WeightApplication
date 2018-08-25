@@ -27,11 +27,9 @@ class personWeight(object):
         self.weightData.append(newData)
 
         # Reorder weightData
-        # TBD.
+        self.weightData = sorted(self.weightData, key=lambda element: date(element[0][2], element[0][1], element[0][0]))
 
     def printWeightData(self):
-        # Graphs are printed from here
-
         # Data for weight graph
         first_date = self.weightData[0][0]
         first_day, first_month, first_year = first_date
@@ -54,8 +52,10 @@ class personWeight(object):
             index += 1
 
         # Data for 7 day moving average graph
+        # Has to be daily plot. Have to estimate daily values for weight.
         # time_average = 0
         # weight_average = 0
+        # TBD
 
         # plt.plot(time_weight, weight, 'b.-', time_average, weight_average, 'gv-')
         plt.plot(time_weight, weight, 'b.-')

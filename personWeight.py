@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import date
+from datetime import datetime
 
 # Class for weight data
 class personWeight(object):
@@ -29,6 +30,7 @@ class personWeight(object):
         # Reorder weightData
         self.weightData = sorted(self.weightData, key=lambda element: date(element[0][2], element[0][1], element[0][0]))
 
+    # Consider dividing printing to two functions (One for basic graph and another for 7 day moving average
     def printWeightData(self):
         # Data for weight graph
         first_date = self.weightData[0][0]
@@ -52,10 +54,27 @@ class personWeight(object):
             index += 1
 
         # Data for 7 day moving average graph
-        # Has to be daily plot. Have to estimate daily values for weight.
+        # Has to be daily plot. Have to estimate daily values for weight. (Long timescale and efficiency!?)
+        # One way is to have weight be as much as latest weight data is (Bad approximation)
+        # Other way would be to calculate lines from weight elements and approximate daily weights from the line
         # time_average = 0
         # weight_average = 0
-        # TBD
+
+        # 1) Daily weight for days that have no weight data is equal to the earlier weight before date
+
+        # Get current date
+        current_date = datetime.now()
+
+        # Generate arrays for 7 day moving average
+        date_difference_average = current_date - first_date
+        time_average = np.zeros((date_difference_average.days), dtype=int)
+        weight_average = np.arange(1, date_difference_average.days, dtype=float)
+
+        # Start going through dates daily
+        for day_iterator in time_average:
+            # Keep latest weight in variable
+            # Check if there is weight for day_iterator date
+            # TBD
 
         # plt.plot(time_weight, weight, 'b.-', time_average, weight_average, 'gv-')
         plt.plot(time_weight, weight, 'b.-')
